@@ -1,9 +1,9 @@
 <template>
-  <div style="width:100%;height:100%">
+  <div style="width:100%;text-align: center;padding-top:25%">
     <img class="img" src="@/assets/image/0.png">
     <div class="text">
-      <span>您还没有报名不能查询信息哦~ </span><br>
-      <span>可以下载APP进行报名</span>
+      <!-- <span>您还没有报名不能查询信息哦~ </span><br> -->
+      <span>您可以下载APP了解更多信息</span>
     </div>
     <div class="button" @click="submit">
       <span class="span">下载APP</span>
@@ -26,8 +26,13 @@ export default {
 }
 </script>
 <style scoped>
+.main{
+  width: 100%;
+  height: 100%;
+}
 .img{
   width: 53.73%;
+  text-align: center;
 }
 .text{
   width: 55%;

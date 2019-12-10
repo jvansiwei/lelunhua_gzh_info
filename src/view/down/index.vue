@@ -1,6 +1,6 @@
 <template>
 <div class="main">
-  <div style="width:100%;text-align: center;margin-top:25%">
+  <div style="width:100%;text-align: center;padding-top:25%">
     <img class="img" src="@/assets/image/0.png">
     <div class="text">
       <span>您还没有报名不能查询信息哦~ </span><br>

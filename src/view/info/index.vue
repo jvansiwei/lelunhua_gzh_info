@@ -70,7 +70,7 @@
       v-model="dialog"
       title="解除绑定"
       show-cancel-button
-      @confirm="jiechu()"
+     :beforeClose="beforeClose"
     >
     <div class="dialog">
 
@@ -167,8 +167,8 @@ export default {
       }
     },
     submit() {
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxdc6dff3d3c765341&redirect_uri=https%3A%2F%2Fclub.lelunhua.com%2Fquery%2Finfo&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-      // this.show = true
+      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxdc6dff3d3c765341&redirect_uri=https%3A%2F%2Fclub.lelunhua.com%2Fquery%2Finfo&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      this.show = true
     },
     dialog_jiechu() {
       this.dialog = true
@@ -183,6 +183,17 @@ export default {
       //   }
       // })
     },
+    dialog_cancel() {
+      this.dialog = false
+    },
+    beforeClose(action, done) {
+      if (action === 'confirm') {
+        done(false)
+        this.jiechu()
+      } else {
+        done();
+      }
+    },
     jiechu() {
       if (this.query.mobile.length < 11) {
         Toast('请输入11位手机号')
@@ -195,11 +206,20 @@ export default {
       this.query.jsCode = this.$route.query.code
       jiechu_bdwx(this.query).then(res => {
         if (res.code === 0) {
+          this.dialog = false
           Toast('解除绑定成功')
           // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxdc6dff3d3c765341&redirect_uri=https://club.lelunhua.com/query&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
           this.$router.push('/?panduan=3')
           console.log(res)
+        } else {
+          Toast('解除绑定失败')
+          this.dialog = false
         }
+      // eslint-disable-next-line no-unused-vars
+      }).catch(error=>{
+        console.log(error)
+        Toast('解除绑定失败')
+        this.dialog = false
       })
     }
   }

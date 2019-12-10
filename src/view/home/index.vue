@@ -3,22 +3,22 @@
     <van-loading size="24px" class="loading" v-if="panduan==0">加载中...</van-loading>
     <!-- <info v-if="panduan==0" :panduans="panduan" /> -->
     <mobile v-if="panduan==1" :panduans="panduan" />
-    <!-- <error v-if="panduan==2" :panduans="panduan" /> -->
+    <error v-if="panduan==2" :panduans="panduan" />
     <!-- 绑定微信确认页面暂时用不上 -->
     <bangding_wx v-if="panduan==3" :panduans="panduan" />
   </div>
 </template>
 <script>
 // import info from './info'
-// import error from './error'
+import error from './error'
 import mobile from './mobile'
 import bangding_wx from './bangding_wx'
 import {infos} from '@/api/all'
 export default {
-  components: {mobile, bangding_wx},
+  components: {mobile, error, bangding_wx},
   data() {
     return {
-      panduan: 0
+      panduan: 2
     }
   },
   created() {
@@ -48,11 +48,13 @@ export default {
           }
         })
         .catch(err => { 
-          this.panduan = 1
+          this.panduan = 2
+          // window.history.go(-1)
           console.log(err)
         })
       } else {
-        window.history.go(-1)
+        this.panduan = 2
+        // window.history.go(-1)
       }
     }
    

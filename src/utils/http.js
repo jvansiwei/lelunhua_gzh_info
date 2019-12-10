@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
 // import Vue from 'vue'
 // 新创建一个vue实例
 // const v = new Vue()
@@ -53,9 +53,10 @@ service.interceptors.response.use(
       if (res.code === 401) {
         console.log(401)
       } else {
-        Toast(res.msg)
+        // Toast(res.msg)
+        console.log(res.msg)
       }
-      return Promise.reject(new Error(res.code || 'Error'))
+      return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       return res
     }
